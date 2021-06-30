@@ -21,11 +21,12 @@ public class Character {
     private String category;
     private List<Integer> better_call_saul_appearance;
 
-    public Character(String name, String nickname, String status, String img) {
+    public Character(String name, String nickname, String status, String img, int char_id) {
         this.name = name;
         this.nickname = nickname;
         this.status = status;
         this.img = img;
+        this.char_id = char_id;
     }
 
     public String getName() {
@@ -42,5 +43,9 @@ public class Character {
 
     public String getImg() {
         return img;
+    }
+
+    public int getCharId() {
+        return char_id;
     }
 }

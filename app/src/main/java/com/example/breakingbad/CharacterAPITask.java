@@ -23,6 +23,7 @@ public class CharacterAPITask extends AsyncTask<String, Void, List<Character>> {
     private final String JSON_NICKNAME = "nickname";
     private final String JSON_STATUS = "status";
     private final String JSON_IMG = "img";
+    private final String JSON_CHAR_ID = "char_id";
 
     private CharacterListener listener = null;
 
@@ -98,8 +99,9 @@ public class CharacterAPITask extends AsyncTask<String, Void, List<Character>> {
                 String nickname = character.getString(JSON_NICKNAME);
                 String status = character.getString(JSON_STATUS);
                 String img = character.getString(JSON_IMG);
+                int charId = character.getInt(JSON_CHAR_ID);
 
-                resultList.add(new Character(name, nickname, status, img));
+                resultList.add(new Character(name, nickname, status, img,charId));
             }
 
         } catch (JSONException e) {

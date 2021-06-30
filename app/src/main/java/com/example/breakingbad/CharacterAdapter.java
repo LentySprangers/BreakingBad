@@ -23,12 +23,10 @@ public class CharacterAdapter extends RecyclerView.Adapter<CharacterAdapter.Char
     private List<Character> mCharacterList;
 
 
-
     public CharacterAdapter(List<Character> characterList) {
         Log.d(TAG, "Constructor was called");
         this.mCharacterList = characterList;
     }
-
 
 
     public class CharacterViewHolder extends RecyclerView.ViewHolder {
@@ -39,6 +37,7 @@ public class CharacterAdapter extends RecyclerView.Adapter<CharacterAdapter.Char
         public TextView nickname;
         public TextView status;
         public ImageView img;
+        public Button mShowDetailsButton;
 
 
         public CharacterViewHolder(@NonNull View itemView) {
@@ -51,18 +50,9 @@ public class CharacterAdapter extends RecyclerView.Adapter<CharacterAdapter.Char
             status = (TextView) itemView.findViewById(R.id.character_list_item_status);
             img = (ImageView) itemView.findViewById(R.id.character_list_item_img);
 
-            Button mShowDetailsButton = (Button) itemView.findViewById(R.id.show_details_button);
+            mShowDetailsButton = (Button) itemView.findViewById(R.id.show_details_button);
 
 
-            mShowDetailsButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Log.d(TAG, "onClick was called");
-
-//                    Intent intent = new Intent(this, DetailsActivity.class);
-//                    startActivity(intent);
-                }
-            });
         }
 
 
@@ -92,8 +82,18 @@ public class CharacterAdapter extends RecyclerView.Adapter<CharacterAdapter.Char
         holder.characterName.setText(character.getName());
         holder.nickname.setText(character.getNickname());
         holder.status.setText(character.getStatus());
-        Picasso.get().load(character.getImg()).resize(250,300).into(holder.img);
+        Picasso.get().load(character.getImg()).resize(250, 300).into(holder.img);
 
+        holder.mShowDetailsButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Log.d(TAG, "onClick was called");
+                Intent intent = new Intent(view.getContext(), DetailsActivity.class);
+                intent.putExtra("id",character.getCharId());
+
+                view.getContext().startActivity(intent);
+            }
+        });
     }
 
     @Override
