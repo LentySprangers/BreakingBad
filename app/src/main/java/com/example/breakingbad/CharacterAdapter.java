@@ -1,10 +1,12 @@
 package com.example.breakingbad;
 
 import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -19,15 +21,7 @@ public class CharacterAdapter extends RecyclerView.Adapter<CharacterAdapter.Char
 
     private final String TAG = getClass().getSimpleName();
     private List<Character> mCharacterList;
-    private CharacterAdapterOnClickHandler mClickHandler;
 
-    public interface CharacterAdapterOnClickHandler {
-        void onClick();
-    }
-
-    public void CharacterAdapter(CharacterAdapterOnClickHandler clickHandler) {
-        mClickHandler = clickHandler;
-    }
 
 
     public CharacterAdapter(List<Character> characterList) {
@@ -37,7 +31,7 @@ public class CharacterAdapter extends RecyclerView.Adapter<CharacterAdapter.Char
 
 
 
-    public class CharacterViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    public class CharacterViewHolder extends RecyclerView.ViewHolder {
 
         private final String TAG = getClass().getSimpleName();
         //following attributes are public because they are in a nested class
@@ -56,13 +50,22 @@ public class CharacterAdapter extends RecyclerView.Adapter<CharacterAdapter.Char
             nickname = (TextView) itemView.findViewById(R.id.character_list_item_nickname);
             status = (TextView) itemView.findViewById(R.id.character_list_item_status);
             img = (ImageView) itemView.findViewById(R.id.character_list_item_img);
+
+            Button mShowDetailsButton = (Button) itemView.findViewById(R.id.show_details_button);
+
+
+            mShowDetailsButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Log.d(TAG, "onClick was called");
+
+//                    Intent intent = new Intent(this, DetailsActivity.class);
+//                    startActivity(intent);
+                }
+            });
         }
 
-        @Override
-        public void onClick(View view) {
 
-            mClickHandler.onClick();
-        }
     }
 
     @NonNull

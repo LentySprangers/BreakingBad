@@ -48,7 +48,7 @@
             android:text="Show details"
 
             android:textSize="12sp"
-            android:id="@+id/show_details_button2"
+            android:id="@+id/show_details_button"
             android:layout_marginLeft="5dp"
 
             />
