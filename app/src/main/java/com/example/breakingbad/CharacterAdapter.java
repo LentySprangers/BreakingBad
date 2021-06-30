@@ -19,12 +19,51 @@ public class CharacterAdapter extends RecyclerView.Adapter<CharacterAdapter.Char
 
     private final String TAG = getClass().getSimpleName();
     private List<Character> mCharacterList;
+    private CharacterAdapterOnClickHandler mClickHandler;
+
+    public interface CharacterAdapterOnClickHandler {
+        void onClick();
+    }
+
+    public void CharacterAdapter(CharacterAdapterOnClickHandler clickHandler) {
+        mClickHandler = clickHandler;
+    }
+
 
     public CharacterAdapter(List<Character> characterList) {
         Log.d(TAG, "Constructor was called");
         this.mCharacterList = characterList;
     }
 
+
+
+    public class CharacterViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+
+        private final String TAG = getClass().getSimpleName();
+        //following attributes are public because they are in a nested class
+        public TextView characterName;
+        public TextView nickname;
+        public TextView status;
+        public ImageView img;
+
+
+        public CharacterViewHolder(@NonNull View itemView) {
+            super(itemView);
+
+            Log.d(TAG, "constructor was called");
+
+            characterName = (TextView) itemView.findViewById(R.id.character_list_item_name);
+            nickname = (TextView) itemView.findViewById(R.id.character_list_item_nickname);
+            status = (TextView) itemView.findViewById(R.id.character_list_item_status);
+            img = (ImageView) itemView.findViewById(R.id.character_list_item_img);
+        }
+
+        @Override
+        public void onClick(View view) {
+
+            mClickHandler.onClick();
+        }
+    }
 
     @NonNull
     @Override
@@ -57,29 +96,5 @@ public class CharacterAdapter extends RecyclerView.Adapter<CharacterAdapter.Char
     @Override
     public int getItemCount() {
         return mCharacterList.size();
-    }
-
-
-    public class CharacterViewHolder extends RecyclerView.ViewHolder {
-
-        private final String TAG = getClass().getSimpleName();
-        //following attributes are public because they are in a nested class
-        public TextView characterName;
-        public TextView nickname;
-        public TextView status;
-        public ImageView img;
-
-
-        public CharacterViewHolder(@NonNull View itemView) {
-            super(itemView);
-
-            Log.d(TAG, "constructor was called");
-
-            characterName = (TextView) itemView.findViewById(R.id.character_list_item_name);
-            nickname = (TextView) itemView.findViewById(R.id.character_list_item_nickname);
-            status = (TextView) itemView.findViewById(R.id.character_list_item_status);
-            img = (ImageView) itemView.findViewById(R.id.character_list_item_img);
-        }
-
     }
 }

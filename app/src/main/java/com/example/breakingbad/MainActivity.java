@@ -4,8 +4,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,6 +20,7 @@ public class MainActivity extends AppCompatActivity implements CharacterAPITask.
     private List<Character> mCharacters = new ArrayList<Character>();
     private RecyclerView mCharactersRecyclerView;
     private CharacterAdapter mCharacterAdapter;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +39,8 @@ public class MainActivity extends AppCompatActivity implements CharacterAPITask.
         //Link adapter to recycler view
         mCharactersRecyclerView.setAdapter(mCharacterAdapter);
 
+        Button mShowDetailsButton = findViewById(R.id.show_details_button2);
+
         String[] params = {
                 "https://www.breakingbadapi.com/api/characters"
         };
@@ -41,6 +48,19 @@ public class MainActivity extends AppCompatActivity implements CharacterAPITask.
         new CharacterAPITask(this).execute(params);
 
 
+mShowDetailsButton.setOnClickListener(new View.OnClickListener() {
+    @Override
+    public void onClick(View view) {
+        Intent intent = new Intent(MainActivity.this, DetailsActivity.class);
+        startActivity(intent);
+    }
+});
+    }
+    public void onClick() {
+        Context context = this;
+        Class destinationClass = DetailsActivity.class;
+        Intent intentToStartDetailActivity = new Intent(context, destinationClass);
+        startActivity(intentToStartDetailActivity);
     }
 
     @Override
